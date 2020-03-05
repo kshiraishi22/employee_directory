@@ -11,20 +11,22 @@ const columns = [
 
 class MainTable extends React.Component {
   state = {
-    result: {},
+    results: [],
     search: ""
   };
 
   componentDidMount() {
-    console.log(columns);
     this.searchEmployee()
   }
 
   searchEmployee = query => {
     API.getRandomEmployee(query)
-      .then(res => console.log(res))
-      // this.setState({ result: res.data}))
-      // .catch(err => console.log(err));
+      .then(res => {
+        console.log(res)
+        this.setState({ results: res.data.results })
+        console.log(res.data)
+      })
+      .catch(err => console.log(err));
   }
 
 
@@ -42,11 +44,15 @@ render() {
                 </tr>
               </thead>
               <tbody>
-                {/* { this.state.results.map(row => {
-                  <th key={row.id}> */}
-
-                  {/* </th> */}
-                {/* })} */}
+                { this.state.results.map(person => (
+                <tr>
+                  <td><img src={person.picture.thumbnail} /></td>
+                  <td>{person.name.first} {person.name.last}</td>
+                  <td>{person.phone}</td>
+                  <td>{person.email}</td>
+                  <td>{person.dob.date}</td>
+                </tr>
+                ))}
               </tbody>
             </table>
           </div>
