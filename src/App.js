@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import MainTable from "./components/MainTable"
 
 function App() {
   return (
@@ -14,7 +15,9 @@ function App() {
             <input type="text" className="form-control" placeholder="Search">
             </input>
           </div>
-          <button type="button" class="btn btn-primary">Search</button>
+          <button type="button" className="btn btn-primary">Search</button>
+          <MainTable />
+    
         </div>
       </form>
     </div>
