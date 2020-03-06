@@ -23,10 +23,19 @@ class MainTable extends React.Component {
   searchEmployee = query => {
     API.getRandomEmployee(query)
       .then(res => {
-        console.log(res);
+        const mapped = res.data.results.map(person => ({
+          first: person.name.first,
+          last: person.name.last,
+          phone: person.phone,
+          email: person.email,
+          dob: person.dob.date,
+          thumbnail: person.picture.thumbnail
+        }));
+
+        console.log(mapped);
         this.setState({
-          results: res.data.results,
-          filtered: res.data.results
+          results: mapped,
+          filtered: mapped
         });
         console.log(res.data);
       })
@@ -37,33 +46,21 @@ class MainTable extends React.Component {
     const { value } = event.target;
 
     const filtered = this.state.results.filter(person => {
-      if (person.name.last.includes(value)) {
+      const stringVal = JSON.stringify(person).toLowerCase();
+      if (stringVal.includes(value.toLowerCase())) {
         return true;
       } else {
         return false;
       }
     });
 
-    if(filtered.length === 1){
-      console.log(Object.values(filtered[0]))
-    }
-
-    this.setState({ filter: value, filtered: filtered });
+    this.setState({
+      filter: value,
+      filtered: filtered
+    });
   };
 
   render() {
-    // var data = {
-    //   name: "ben",
-    //   age: 31
-    // };
-
-    // var myArr = ["dog", "cat"];
-    // console.log(myArr[0]);
-    // var key = "name";
-    // console.log(data[key]);
-    // key = "age";
-    // console.log(data[key]);
-
     return (
       <>
         <div className="row">
@@ -84,10 +81,14 @@ class MainTable extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.filtered.map(person => (
-                  <tr>
-                    <td><img src={person.picture.thumbnail} alt="#" /></td>
-                    <td>{person.name.first} {person.name.last}</td>
+                {this.state.filtered.map((person, i) => (
+                  <tr key={i + "-tableRow"}>
+                    <td>
+                      <img src={person.thumbnail} alt="#" />
+                    </td>
+                    <td>
+                      {person.first} {person.last}
+                    </td>
                     <td>{person.phone}</td>
                     <td>{person.email}</td>
                     <td>{person.dob.date}</td>
