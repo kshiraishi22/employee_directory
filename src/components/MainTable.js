@@ -1,6 +1,7 @@
 import React from "react";
 import API from "../utils/API";
 
+// Columns for tables created
 const columns = [
   { id: 1, label: "image" },
   { id: 2, label: "name" },
@@ -9,17 +10,19 @@ const columns = [
   { id: 5, label: "DOB" }
 ];
 
+// MainTable as Class Component
 class MainTable extends React.Component {
   state = {
     results: [],
     filtered: [],
-    filter: ""
+    filter: "",
   };
 
   componentDidMount() {
     this.searchEmployee();
   }
-
+  
+  // API call from Random User
   searchEmployee = query => {
     API.getRandomEmployee(query)
       .then(res => {
@@ -28,7 +31,7 @@ class MainTable extends React.Component {
           last: person.name.last,
           phone: person.phone,
           email: person.email,
-          dob: person.dob.date,
+          dob: person.dob,
           thumbnail: person.picture.thumbnail
         }));
 
@@ -42,6 +45,7 @@ class MainTable extends React.Component {
       .catch(err => console.log(err));
   };
 
+  // HandleFilter function to filter out data based on search
   handleFilter = event => {
     const { value } = event.target;
 
