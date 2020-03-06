@@ -1,5 +1,6 @@
 import React from "react";
 import API from "../utils/API";
+import "../../src/App.css"
 
 // Columns for tables created
 const columns = [
@@ -67,30 +68,38 @@ class MainTable extends React.Component {
   render() {
     return (
       <>
+      {/* Search bar */}
         <div className="row">
-          <input
-            type="text"
-            className="form-control"
-            onChange={this.handleFilter}
-            value={this.state.filter}
-            placeholder="Search"
-          />
+          <div className="col-6">
+            <div className="searchBar">
+              <input
+                type="text"
+                className="form-control"
+                onChange={this.handleFilter}
+                value={this.state.filter}
+                placeholder="Start Searching Here!"
+              />
+            </div>
+          </div>
           <div className="col-12">
             <table className="table">
               <thead>
                 <tr>
+                  {/* Mapping through column categories */}
                   {columns.map(column => (
                     <th key={column.id}>{column.label}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
+                {/* Mapping through filtered data */}
                 {this.state.filtered.map((person, i) => (
                   <tr key={i + "-tableRow"}>
                     <td>
                       <img src={person.thumbnail} alt="#" />
                     </td>
                     <td>
+                      {/* Rendering each piece of data */}
                       {person.first} {person.last}
                     </td>
                     <td>{person.phone}</td>
