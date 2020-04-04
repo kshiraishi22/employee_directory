@@ -19,7 +19,7 @@ In order to use this application, the user must first install the necessary npm 
 - Axios: used to make API calls
 
 # Link
-Github: https://kshiraishi22.github.io/employee_directory_react/
+Github: https://kshiraishi22.github.io/employee_directory_react/  
 Deployed app: "https://arcane-tundra-09488.herokuapp.com/"
 
 
